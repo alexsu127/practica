@@ -86,7 +86,7 @@ public class PageController {
             @RequestParam String token
     ) {
         if (firstStepService.tryPin(id, pin)) {
-            subscriptionService.newSubscription(id);
+            //subscriptionService.newSubscription(id);
             return new RedirectView("http://localhost/" + country + "/lp/" + pagePath + "/thanksyou.html");
         } else {
             attributes.addAttribute("url", "http://localhost:8080/" + country + "/" + pagePath + "/thanksyou");

@@ -17,6 +17,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>landing</module>
+        <module>subscription</module>
+        <module>notification</module>
     </modules>
 
     <properties>
