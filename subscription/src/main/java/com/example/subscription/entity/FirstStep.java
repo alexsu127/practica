@@ -1,12 +1,12 @@
-package com.example.landing.entity;
+package com.example.subscription.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "subscription")
-public class Subscription {
+@Table(name = "first_step")
+public class FirstStep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,5 +27,4 @@ public class Subscription {
 
     private Integer pin;
 
-    private Integer active;
 }

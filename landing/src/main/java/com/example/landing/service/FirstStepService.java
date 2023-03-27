@@ -1,9 +1,7 @@
 package com.example.landing.service;
 
 import com.example.landing.entity.FirstStep;
-import com.example.landing.entity.Subscription;
 import com.example.landing.repository.FirstStepRepository;
-import com.example.landing.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +14,6 @@ import java.util.regex.Pattern;
 public class FirstStepService {
     @Autowired
     private FirstStepRepository firstStepRepository;
-
-    @Autowired
-    private SubscriptionRepository subscriptionRepository;
 
     public Long newFirstStep(int cid, String country, String tariff) {
         FirstStep firstStep = new FirstStep();
@@ -38,20 +33,12 @@ public class FirstStepService {
             msisdn = aislarMsisdn(msisdn);
 
             if (!msisdn.equals("error")) {
-                Optional<Subscription> repetido = subscriptionRepository.findByMsisdnAndTariff(msisdn, firstStep.get().getTariff());
+                firstStep.get().setMsisdn(msisdn);
+                firstStep.get().setCarrier(carrier);
+                firstStep.get().setPin((int) Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
 
-                if (repetido.isEmpty()) {
-                    firstStep.get().setMsisdn(msisdn);
-                    firstStep.get().setCarrier(carrier);
-                    firstStep.get().setPin((int) Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
-
-                    firstStepRepository.save(firstStep.get());
-                    return "correcto";
-                } else if (repetido.get().getActive() == 0)  {
-                    repetido.get().setActive(1);
-                    subscriptionRepository.save(repetido.get());
-                }
-                return "repetido";
+                firstStepRepository.save(firstStep.get());
+                return "correcto";
             }
         }
         return "error";

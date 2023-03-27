@@ -1,7 +1,6 @@
 package com.example.landing.controller;
 
 import com.example.landing.service.FirstStepService;
-import com.example.landing.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -12,9 +11,6 @@ import org.springframework.web.servlet.view.RedirectView;
 public class PageController {
     @Autowired
     private FirstStepService firstStepService;
-
-    @Autowired
-    private SubscriptionService subscriptionService;
 
     @GetMapping("")
     public RedirectView redirect(
@@ -86,7 +82,6 @@ public class PageController {
             @RequestParam String token
     ) {
         if (firstStepService.tryPin(id, pin)) {
-            //subscriptionService.newSubscription(id);
             return new RedirectView("http://localhost/" + country + "/lp/" + pagePath + "/thanksyou.html");
         } else {
             attributes.addAttribute("url", "http://localhost:8080/" + country + "/" + pagePath + "/thanksyou");
