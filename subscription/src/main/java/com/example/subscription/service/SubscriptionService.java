@@ -28,11 +28,9 @@ public class SubscriptionService {
             if (firstStep.isPresent()) {
                 subscription.setCarrierId(Long.valueOf(firstStep.get().getCarrier()));
                 subscription.setCountryIso(firstStep.get().getCountryIso());
-
-                return firstStep.toString();
             }
 
-            return "puto el que lo lea 2.0";
+            return subscription.toString();
         } catch (Exception e) {
             return "puto el que lo lea";
         }
