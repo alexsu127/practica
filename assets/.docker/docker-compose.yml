@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  apache2:
+    container_name: "php-apache2"
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9003 remote_enable=1
+    ports:
+      - "80:80"
+    volumes:
+      - ../src:/var/www/html
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    container_name: "mysql"
+    image: mysql:latest
+    restart: always
+    #environment:
+      #MYSQL_ROOT_PASSWORD: root
+    hostname: db
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: "phpmyadmin"
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - "8081:80"
+
+  rabbitmq:
+    container_name: "rabbit"
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  mysql_data:
+  rabbitmq_data:
