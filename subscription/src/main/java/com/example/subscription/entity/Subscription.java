@@ -1,15 +1,21 @@
 package com.example.subscription.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 @Entity
 @Data
 @Table(name = "subscription")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,13 +42,18 @@ public class Subscription {
         this.idCampaing = (Long) datos.get("idCampaing");
         this.offerId = (Long) datos.get("offerId");
         this.offerName = (String) datos.get("offerName");
-        this.active = active;
+        this.active = true;
         this.state = (String) datos.get("state");
-        this.subscriptionDate = subscriptionDate;
-        this.subscriptionTimestamp = subscriptionTimestamp;
-        this.unsubscriptionTimestamp = unsubscriptionTimestamp;
-        this.firstCharged = firstCharged;
-        this.billing += (Integer) datos.get("charged");
-        this.dateBilling = dateBilling;
+        this.subscriptionDate = Date.valueOf(LocalDate.now());
+        this.subscriptionTimestamp = Timestamp.valueOf(LocalDateTime.now());
+        this.unsubscriptionTimestamp = null;
+        this.billing = (Integer) datos.get("charged");
+        this.dateBilling = Date.valueOf(LocalDate.now());
+
+        if (dateBilling.equals(subscriptionDate)) {
+            this.firstCharged = Date.valueOf(LocalDate.now());
+        } else {
+            this.firstCharged = null;
+        }
     }
 }
