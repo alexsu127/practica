@@ -1,0 +1,26 @@
+### Notification
+POST http://localhost:8082/notification/af
+Content-Type: application/json
+
+{
+  "id": 1,
+  "subscription_id": 1,
+  "id_campaing": 1,
+  "state": "active",
+  "offer_id": 1,
+  "offer_name": "Gametime day",
+  "charged": 999,
+  "msisdn": "666777888"
+}
+
+<> 2023-03-28T092955.200.txt
+<> 2023-03-28T092934.200.txt
+<> 2023-03-28T092824.200.txt
+<> 2023-03-28T090027.200.txt
+<> 2023-03-28T085935.200.txt
+<> 2023-03-28T085900.200.txt
+<> 2023-03-28T085138.200.txt
+<> 2023-03-28T085058.200.txt
+<> 2023-03-28T084821.200.txt
+<> 2023-03-28T084710.200.txt
+<> 2023-03-28T084551.200.txt
