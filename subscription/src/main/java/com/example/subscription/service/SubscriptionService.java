@@ -72,7 +72,24 @@ public class SubscriptionService {
         return subscription.isPresent();
     }
 
+    public boolean unsubscribe(String msisdn, String offerName) {
+        Optional<Subscription> subscription = subscriptionRepository.findByMsisdnAndOfferName(msisdn, offerName);
+
+        if (subscription.isPresent()) {
+            subscription.get().setActive(false);
+            subscription.get().setUnsubscriptionTimestamp(Timestamp.valueOf(LocalDateTime.now()));
+            subscription.get().setState("inactive");
+
+            subscriptionRepository.save(subscription.get());
+            return true;
+        }
+
+        return false;
+    }
+
     private String getTariff(String offerName) {
         return offerName.split(" ")[1];
     }
+
+
 }

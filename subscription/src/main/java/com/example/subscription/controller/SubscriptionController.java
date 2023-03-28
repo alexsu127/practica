@@ -26,9 +26,10 @@ public class SubscriptionController {
     }
 
     @PostMapping("/unsubscribe")
-    public String unsubscribe(
-            @RequestParam String prueba
+    public ResponseEntity<String> unsubscribe(
+            @RequestParam String msisdn,
+            @RequestParam String offer_name
     ) {
-        return prueba;
+        return subscriptionService.unsubscribe(msisdn, offer_name) ? ResponseEntity.ok("200") : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("500");
     }
 }
