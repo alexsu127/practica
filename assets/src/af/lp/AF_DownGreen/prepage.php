@@ -56,6 +56,7 @@
             <h2 class="arab" dir="rtl">انقر أدناه للمتابعة </h2>
             <form action="<?php echo $_GET['url'] ?>">
             <input name="cid" type="hidden" value="<?php echo $_GET['cid'] ?>" />
+            <input type="hidden" name="msisdn" value="<?php echo $_GET['msisdn'] ?>" />
                 <button class="btn shake">
                     <span class="english" onclick="popUp()">Continue</span>
                     <span class="arab" dir="rtl">استمر</span>

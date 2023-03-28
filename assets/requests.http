@@ -1,5 +1,8 @@
+### Comprobar salto a enter_msisdn
+GET http://localhost:8080/{{country}}/{{pagePath}}/msisdn?cid={{cid}}&tariff={{tariff}}&msisdn={{msisdn}}
+
 ### Notification
-POST http://localhost:8082/notification/af
+POST http://localhost:8081/notification/af
 Content-Type: application/json
 
 {
@@ -12,15 +15,3 @@ Content-Type: application/json
   "charged": 1,
   "msisdn": "666777888"
 }
-
-<> 2023-03-28T092955.200.txt
-<> 2023-03-28T092934.200.txt
-<> 2023-03-28T092824.200.txt
-<> 2023-03-28T090027.200.txt
-<> 2023-03-28T085935.200.txt
-<> 2023-03-28T085900.200.txt
-<> 2023-03-28T085138.200.txt
-<> 2023-03-28T085058.200.txt
-<> 2023-03-28T084821.200.txt
-<> 2023-03-28T084710.200.txt
-<> 2023-03-28T084551.200.txt
