@@ -52,6 +52,7 @@ public class SubscriptionService {
                     repetido.get().setFirstCharged(null);
                 }
 
+                repetido.get().setState(subscription.getState());
                 repetido.get().setBilling(repetido.get().getBilling() + subscription.getBilling());
 
                 subscriptionRepository.save(repetido.get());
