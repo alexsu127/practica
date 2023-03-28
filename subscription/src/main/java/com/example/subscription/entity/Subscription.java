@@ -37,11 +37,11 @@ public class Subscription {
     private Date dateBilling;
 
     public Subscription(HashMap<String, ?> datos) {
-        this.subscriptionId = (Long) datos.get("subscriptionId");
+        this.subscriptionId = Integer.toUnsignedLong((Integer) datos.get("subscription_id"));
         this.msisdn = (String) datos.get("msisdn");
-        this.idCampaing = (Long) datos.get("idCampaing");
-        this.offerId = (Long) datos.get("offerId");
-        this.offerName = (String) datos.get("offerName");
+        this.idCampaing = Integer.toUnsignedLong((Integer) datos.get("id_campaing"));
+        this.offerId = Integer.toUnsignedLong((Integer) datos.get("offer_id"));
+        this.offerName = (String) datos.get("offer_name");
         this.active = true;
         this.state = (String) datos.get("state");
         this.subscriptionDate = Date.valueOf(LocalDate.now());

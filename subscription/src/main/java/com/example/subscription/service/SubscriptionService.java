@@ -24,7 +24,7 @@ public class SubscriptionService {
             HashMap<String, ?> result = new ObjectMapper().readValue(json, HashMap.class);
             Optional<FirstStep> firstStep = firstStepRepository.findByMsisdnAndTariffOrderByHoraDesc(
                     (String) result.get("msisdn"),
-                    getTariff((String) result.get("offerName"))
+                    getTariff((String) result.get("offer_name"))
             );
             Subscription subscription = new Subscription(result);
 
@@ -35,23 +35,28 @@ public class SubscriptionService {
 
             Optional<Subscription> repetido = subscriptionRepository.findByMsisdnAndOfferName(
                     (String) result.get("msisdn"),
-                    (String) result.get("offerName")
+                    (String) result.get("offer_name")
             );
 
             if (repetido.isPresent()) {
                 if (!repetido.get().getActive()) {
                     repetido.get().setActive(true);
-                    subscriptionRepository.save(repetido.get());
-                    return "Activado";
                 }
-                return "Ya existe una subscripcion activa con nº " + repetido.get().getMsisdn();
+                if (repetido.get().getFirstCharged() != null) {
+                    repetido.get().setFirstCharged(null);
+                }
+
+                repetido.get().setBilling(repetido.get().getBilling() + subscription.getBilling());
+
+                subscriptionRepository.save(repetido.get());
+                return "Actualizada la subscripción con nº " + repetido.get().getMsisdn();
             }
 
             subscriptionRepository.save(subscription);
 
             return "Insertado " + subscription;
         } catch (Exception e) {
-            return "Error";
+            return "Error al recibir los datos";
         }
     }
 

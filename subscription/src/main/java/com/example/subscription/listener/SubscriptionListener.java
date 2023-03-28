@@ -29,7 +29,7 @@ public class SubscriptionListener {
 
     @RabbitHandler
     public void onMessage(@Payload final String element) {
-        log.info("Mensaje : {}", element);
-        log.info("Insercion : {}", subscriptionService.newSubscription(element));
+        log.info("Info : {}", element);
+        log.info("Mensaje : {}", subscriptionService.newSubscription(element));
     }
 }
