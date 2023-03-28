@@ -22,7 +22,10 @@ public class SubscriptionService {
     public String newSubscription(String json) {
         try {
             HashMap<String, ?> result = new ObjectMapper().readValue(json, HashMap.class);
-            Optional<FirstStep> firstStep = firstStepRepository.findByMsisdnAndTariffOrderByHoraDesc((String) result.get("msisdn"), getTariff((String) result.get("offerName")));
+            Optional<FirstStep> firstStep = firstStepRepository.findByMsisdnAndTariffOrderByHoraDesc(
+                    (String) result.get("msisdn"),
+                    getTariff((String) result.get("offerName"))
+            );
             Subscription subscription = new Subscription(result);
 
             if (firstStep.isPresent()) {
@@ -30,9 +33,25 @@ public class SubscriptionService {
                 subscription.setCountryIso(firstStep.get().getCountryIso());
             }
 
-            return subscription.toString();
+            Optional<Subscription> repetido = subscriptionRepository.findByMsisdnAndOfferName(
+                    (String) result.get("msisdn"),
+                    (String) result.get("offerName")
+            );
+
+            if (repetido.isPresent()) {
+                if (!repetido.get().getActive()) {
+                    repetido.get().setActive(true);
+                    subscriptionRepository.save(repetido.get());
+                    return "Activado";
+                }
+                return "Ya existe una subscripcion activa con nº " + repetido.get().getMsisdn();
+            }
+
+            subscriptionRepository.save(subscription);
+
+            return "Insertado " + subscription;
         } catch (Exception e) {
-            return "puto el que lo lea";
+            return "Error";
         }
     }
 
