@@ -15,3 +15,9 @@ Content-Type: application/json
   "charged": 1,
   "msisdn": "666777888"
 }
+
+### Login
+POST http://localhost:8082/login
+Content-Type: application/x-www-form-urlencoded
+
+prueba=hola

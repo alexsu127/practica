@@ -67,6 +67,11 @@ public class SubscriptionService {
         }
     }
 
+    public boolean login(String msisdn, String offerName) {
+        Optional<Subscription> subscription = subscriptionRepository.findByMsisdnAndOfferName(msisdn, offerName);
+        return subscription.isPresent();
+    }
+
     private String getTariff(String offerName) {
         return offerName.split(" ")[1];
     }
