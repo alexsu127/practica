@@ -9,7 +9,7 @@ Content-Type: application/json
   "state": "active",
   "offer_id": 1,
   "offer_name": "Gametime day",
-  "charged": 999,
+  "charged": 1,
   "msisdn": "666777888"
 }
 

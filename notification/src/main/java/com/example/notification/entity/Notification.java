@@ -33,19 +33,15 @@ public class Notification {
     private String msisdn;
 
     public Notification(NotificationDTO notificationDto) {
-        this.subscriptionId = notificationDto.getSubscriptionId();
-        this.idCampaing = notificationDto.getIdCampaing();
+        this.subscriptionId = notificationDto.getSubscription_id();
+        this.idCampaing = notificationDto.getId_campaing();
         this.state = notificationDto.getState();
-        this.offerId = notificationDto.getOfferId();
-        this.offerName = notificationDto.getOfferName();
+        this.offerId = notificationDto.getOffer_id();
+        this.offerName = notificationDto.getOffer_name();
         this.subscriptionStartDate = Date.valueOf(LocalDate.now());
-        this.subscriptionEndDate = null;
+        this.subscriptionEndDate = notificationDto.getState().equals("active") ? null : Date.valueOf(LocalDate.now());
         this.charged = notificationDto.getCharged();
-        if (charged != 0) {
-            this.renewalDate = Date.valueOf(LocalDate.now());
-        } else {
-            this.renewalDate = null;
-        }
+        this.renewalDate = (charged != 0) ? Date.valueOf(LocalDate.now()) : null;
         this.timestamp = Timestamp.valueOf(LocalDateTime.now());
         this.msisdn = notificationDto.getMsisdn();
     }

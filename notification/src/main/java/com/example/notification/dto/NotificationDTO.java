@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 public class NotificationDTO {
     private Long id;
-    private Long subscriptionId;
-    private Integer idCampaing;
+    private Long subscription_id;
+    private Integer id_campaing;
     private String state;
-    private Long offerId;
-    private String offerName;
+    private Long offer_id;
+    private String offer_name;
     private Integer charged;
     private String msisdn;
 }

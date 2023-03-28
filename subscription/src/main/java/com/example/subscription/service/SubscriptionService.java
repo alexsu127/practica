@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -39,8 +41,12 @@ public class SubscriptionService {
             );
 
             if (repetido.isPresent()) {
-                if (!repetido.get().getActive()) {
+                if (subscription.getState().equals("active")) {
                     repetido.get().setActive(true);
+                    repetido.get().setUnsubscriptionTimestamp(null);
+                } else {
+                    repetido.get().setActive(false);
+                    repetido.get().setUnsubscriptionTimestamp(Timestamp.valueOf(LocalDateTime.now()));
                 }
                 if (repetido.get().getFirstCharged() != null) {
                     repetido.get().setFirstCharged(null);

@@ -42,18 +42,13 @@ public class Subscription {
         this.idCampaing = Integer.toUnsignedLong((Integer) datos.get("id_campaing"));
         this.offerId = Integer.toUnsignedLong((Integer) datos.get("offer_id"));
         this.offerName = (String) datos.get("offer_name");
-        this.active = true;
+        this.active = datos.get("state").equals("active");
         this.state = (String) datos.get("state");
         this.subscriptionDate = Date.valueOf(LocalDate.now());
         this.subscriptionTimestamp = Timestamp.valueOf(LocalDateTime.now());
         this.unsubscriptionTimestamp = null;
         this.billing = (Integer) datos.get("charged");
         this.dateBilling = Date.valueOf(LocalDate.now());
-
-        if (dateBilling.equals(subscriptionDate)) {
-            this.firstCharged = Date.valueOf(LocalDate.now());
-        } else {
-            this.firstCharged = null;
-        }
+        this.firstCharged = dateBilling.equals(subscriptionDate) ? Date.valueOf(LocalDate.now()) : null;
     }
 }
