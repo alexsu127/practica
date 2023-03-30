@@ -2,7 +2,7 @@
   <configuration default="false" name="SubscriptionApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="subscription" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.subscription.SubscriptionApplication" />
-    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndTriggerFile" />
+    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.example.subscription.*" />

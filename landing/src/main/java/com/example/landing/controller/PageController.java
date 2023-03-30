@@ -110,7 +110,7 @@ public class PageController {
             String data = gson.toJson(firstStepDTO);
 
             restTemplate.postForEntity("http://localhost:8081/notification/" + country, data, String.class);
-            log.info("Notification sent to " + country + " with data: " + data);
+            log.info("Notification sent to " + country + " with data: {}", data);
 
             return new RedirectView("http://localhost/" + country + "/lp/" + pagePath + "/thanksyou.html");
         } else {

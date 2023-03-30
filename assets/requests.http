@@ -20,4 +20,9 @@ Content-Type: application/json
 POST http://localhost:8082/login
 Content-Type: application/x-www-form-urlencoded
 
-prueba=hola
+msisdn=666777888&offer_name=Gametime%20week
+
+### Unsubscribe
+POST http://localhost:8082/unsubscribe
+
+msisdn=666777888&offer_name=Gametime%20week

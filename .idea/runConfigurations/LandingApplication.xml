@@ -2,7 +2,7 @@
   <configuration default="false" name="LandingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="landing" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.landing.LandingApplication" />
-    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndTriggerFile" />
+    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.example.landing.*" />
