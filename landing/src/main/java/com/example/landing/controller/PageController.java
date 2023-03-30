@@ -1,9 +1,12 @@
 package com.example.landing.controller;
 
+import com.example.landing.entity.FirstStepDTO;
 import com.example.landing.service.FirstStepService;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -91,10 +94,24 @@ public class PageController {
             @RequestParam String token
     ) {
         if (firstStepService.tryPin(id, pin)) {
-            /*RestTemplate restTemplate = new RestTemplate();
-            Map<String, ?> entity = new HashMap<>();
-            ResponseEntity<String> response = restTemplate.exchange("http://localhost:8081/notification/af", HttpMethod.POST, entity, String.class);
-            log.info("Respuesta lp: {}", response);*/
+            RestTemplate restTemplate = new RestTemplate();
+            Gson gson = new Gson();
+
+            FirstStepDTO firstStepDTO = new FirstStepDTO();
+            firstStepDTO.setId(id);
+            firstStepDTO.setId_campaing(firstStepService.getCid(id));
+            firstStepDTO.setSubscription_id(1);
+            firstStepDTO.setState("active");
+            firstStepDTO.setOffer_id(1);
+            firstStepDTO.setOffer_name("Gametime " + tariff);
+            firstStepDTO.setCharged(1);
+            firstStepDTO.setMsisdn(firstStepService.getMsisdn(id));
+
+            String data = gson.toJson(firstStepDTO);
+
+            restTemplate.postForEntity("http://localhost:8081/notification/" + country, data, String.class);
+            log.info("Notification sent to " + country + " with data: " + data);
+
             return new RedirectView("http://localhost/" + country + "/lp/" + pagePath + "/thanksyou.html");
         } else {
             attributes.addAttribute("url", "http://localhost:8080/" + country + "/" + pagePath + "/thanksyou");

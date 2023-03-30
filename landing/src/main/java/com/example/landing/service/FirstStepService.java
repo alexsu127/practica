@@ -50,6 +50,15 @@ public class FirstStepService {
         return firstStep.filter(step -> step.getPin() == pin).isPresent();
     }
 
+    public String getMsisdn(int id) {
+        Optional<FirstStep> firstStep = firstStepRepository.findById((long) id);
+
+        if (firstStep.isPresent()) {
+            return firstStep.get().getMsisdn();
+        }
+        return "error";
+    }
+
     private boolean comprobarMsisdn(String msisdn) {
         Pattern movil = Pattern.compile("(\\+34|034|34|0|00)?[ -]*([67])[ -]*([0-9][ -]*){8}");
         return movil.matcher(msisdn).matches();
@@ -60,5 +69,14 @@ public class FirstStepService {
             return msisdn.replace("-", "").replaceAll("\\s", "").substring(msisdn.length() - 9);
         }
         return "error";
+    }
+
+    public Integer getCid(int id) {
+        Optional<FirstStep> firstStep = firstStepRepository.findById((long) id);
+
+        if (firstStep.isPresent()) {
+            return firstStep.get().getIdCampaing();
+        }
+        return 0;
     }
 }
